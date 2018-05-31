@@ -32,21 +32,23 @@ request("https://www.reddit.com/r/webdev", function(error, res, html) {
         // Save the text and href of each link enclosed in the current element
         var title = $(element).text();
         var link = $(element).children().attr("href");
-    
+        console.log(title)
+        console.log(link)
+        db.articles.remove({})
         // Insert the data in the scrapedData db
-        if(db.articles.find({'title': title})===null){
-            db.articles.create({
-                title: title,
-                link: link
-            })
-        }
-        else{
-            db.articles.find({'title':title}).remove()
-            db.articles.create({
-                title: title,
-                link: link
-            })
-        }
+        // if(db.articles.find({})== null){
+        //     db.articles.create({
+        //         title: title,
+        //         link: link
+        //     })
+        // }
+        // else{
+            // db.articles.remove({})
+            // db.articles.create({
+            //     title: title,
+            //     link: link
+            // })
+        // }
     })
 })
 
