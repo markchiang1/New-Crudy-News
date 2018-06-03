@@ -1,22 +1,20 @@
 
 
 $(document).ready(function(){
-    $.get('/all/articles', function(err,res){
-        if (err) throw err
-        console.log(res)
-        var list = res
-        for (i in list[i]){
-            var title = list[i].title
-            console.log('title:' + title)
-            var url = list[i].link
-            console.log('url:' + url)
-            if(url[0]!=='h'){
-                let link = 'https:/'+url
+    console.log('hello javascript file')
+
+    $(document).on('click', '#download-button', function(){
+        console.log('clicked button')
+        $.getJSON('/all/articles', function(err,data){
+            if (err) throw err
+            // console.log(res)
+            var articles = []
+            articles =  data;
+            for (var i=0; i<data.length; i++){
+                // console.log('in the front end loop'+ i)
+                console.log('in the for loop getting articles')
+                $('#articles-append').append('<p>' + data[i].title + '/n' + data[i].link +'/n</p>')
             }
-            else{
-                link = url
-            }
-            console.log(link)
-        }
+        })
     })
 })
