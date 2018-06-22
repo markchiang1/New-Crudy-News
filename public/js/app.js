@@ -13,9 +13,18 @@ $(document).ready(function(){
             for (var i=0; i<data.length; i++){
                 // console.log('in the front end loop'+ i)
                 // console.log('in the for loop getting articles')
-                // console.log(data[i]);
+                console.log(data[i]);
                 
-                $('#articles-append').append('<ol>' + data[i].title + '</ol><p>' + data[i].link +'</p>')
+                $('#articles-append').append(`<div class="row">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                      <span class="card-title">`+data[i].title+`</span>
+                    </div>
+                    <div class="card-action">
+                      <a href="`+data[i].link+`">`+data[i].link+`</a>
+                    </div>
+                  </div>
+              </div>`)
             }
         })  
     })

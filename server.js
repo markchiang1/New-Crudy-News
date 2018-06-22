@@ -24,8 +24,8 @@ app.use(bodyParser.json())
 // Use express.static to serve the public folder as a static directory
 app.use(express.static(path.join(__dirname, 'public')))
 
-
-request("https://www.reddit.com/r/webdev/new/", function(error, res, html) {
+var url = "https://www.reddit.com/r/webdev/new/"
+request(url, function(error, res, html) {
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', res && res.statusCode); // Print the response status code if a response was received
     // Load the html body from request into cheerio
@@ -37,13 +37,18 @@ request("https://www.reddit.com/r/webdev/new/", function(error, res, html) {
         var title = $(element).text();
         var link = $(element).children().attr("href");
         console.log(title)
-        console.log(link)
+        console.log(link[0])
         console.log('==============')
+        if(link[0]!=="h"){
+            newLink=url+link
+        }else{
+            newLink=link
+        }
         db.articles.remove({}, function(){
             // Insert the data in the scrapedData db
             db.articles.create({
                 'title': title,
-                'link': link
+                'link': newLink
             })
         }) 
     })
